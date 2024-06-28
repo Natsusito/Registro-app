@@ -1,0 +1,66 @@
+CREATE DATABASE Registro;
+USE Registro;
+
+-- Crear la tabla Usuarios
+CREATE TABLE Usuarios(
+    Id_Usuario INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Edad INT,
+    Alias VARCHAR(50),
+    CorreoElectronico VARCHAR(60),
+    Telefono VARCHAR(20)
+);
+
+CREATE PROCEDURE CrearUsuario
+    @Nombre VARCHAR(50),
+    @Edad INT,
+    @Alias VARCHAR(50),
+    @CorreoElectronico VARCHAR(60),
+    @Telefono VARCHAR(20)
+AS
+BEGIN
+    INSERT INTO Usuarios (Nombre, Edad, Alias, CorreoElectronico, Telefono)
+    VALUES (@Nombre, @Edad, @Alias, @CorreoElectronico, @Telefono);
+END;
+
+CREATE PROCEDURE LeerUsuarios
+AS
+BEGIN
+    SELECT * FROM Usuarios;
+END;
+
+CREATE PROCEDURE LeerUsuarioPorId
+    @Id_Usuario INT
+AS
+BEGIN
+    SELECT * FROM Usuarios WHERE Id_Usuario = @Id_Usuario;
+END;
+
+
+CREATE PROCEDURE ActualizarUsuario
+    @Id_Usuario INT,
+    @Nombre VARCHAR(50),
+    @Edad INT,
+    @Alias VARCHAR(50),
+    @CorreoElectronico VARCHAR(60),
+    @Telefono VARCHAR(20)
+AS
+BEGIN
+    UPDATE Usuarios
+    SET Nombre = @Nombre,
+        Edad = @Edad,
+        Alias = @Alias,
+        CorreoElectronico = @CorreoElectronico,
+        Telefono = @Telefono
+    WHERE Id_Usuario = @Id_Usuario;
+END;
+
+CREATE PROCEDURE EliminarUsuario
+    @Id_Usuario INT
+AS
+BEGIN
+    DELETE FROM Usuarios WHERE Id_Usuario = @Id_Usuario;
+END;
+
+
+
